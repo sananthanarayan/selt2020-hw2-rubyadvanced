@@ -30,10 +30,28 @@ def palindrome?(str)
   # TODO: YOUR CODE HERE
   # HINT: Only consider the 26 letters of the alphabet as part of the palindrome.
   # All other characters should be ignored.
+
+  # Used three ruby doc links to write this one line of code to check if the string is same forwards and backwards
+  # https://ruby-doc.org/docs/ruby-doc-bundle/ProgrammingRuby/book/ref_c_string.html
+  # https://ruby-doc.org/core-2.5.0/String.html#method-i-downcase
+  # https://ruby-doc.org/core-2.6/String.html#method-i-reverse
+  # Also used the reg expression \W since some expressions may have non-word characters and we want to accept those too
+  str.gsub(/\W/,'').downcase == str.gsub(/\W/,'').downcase.reverse
 end
 
 def count_words(str)
   # TODO: YOUR CODE HERE
+  # Used this link to figure out how to use hashes in ruby https://stackoverflow.com/questions/11992387/how-to-use-hash-in-ruby
+  # Also used the each method instead of for loop to count the words in the hash
+  # Used the begin and end block for code so the count words runs in a proper structure
+  # I used the regexp \W to use nonword characters as the points where the string is split
+  begin
+    str.downcase! and str.gsub!(/\b\W+\b/,' ')
+    count_word = str.split(/\W+/)
+    word_as_hash = Hash.new(0)
+    count_word.each{|i| word_as_hash[i] += 1}
+    word_as_hash
+  end
 end
 
 =begin

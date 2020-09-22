@@ -3,19 +3,23 @@ class Class
   def attr_accessor_with_history(attr_name)
     attr_name = attr_name.to_s   # make sure it's a string
     attr_reader attr_name        # create the attribute's getter
-    # TODO: YOUR CODE CHANGES HERE, the code below may need to be removed or modified
 
     # HINT See use of string literals https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#The_%_Notation
     attr_reader attr_name + '_history' # create bar_history getter
-    class_eval %(
-         YOUR CODE HERE, USE string litrals with % notation FOR MULTILINE STRINGS
-    ), __FILE__, __LINE__ -2
 
-    # A silly example of monkey patching, REMOVE THIS FUNCTION!!
-    class_eval %{
-       def print_selt_is_cool()
-          puts('SELT is cool')
-       end
-    }, __FILE__, __LINE__ - 4 # NOTE: -4 because function to report on begins 3 lines before current __LINE__
+
+    class_eval %Q{
+         #YOUR CODE HERE, USE string litrals with % notation FOR MULTILINE STRINGS'
+         # Was stuck on how to approach problem so used the link in the comments to get this problem solved
+         # Link is https://maxivak.com/ruby-metaprogramming-and-own-attr_accessor/
+         # Used the link to help write the code inside the defnition function involving the bar_history variable
+         def #{attr_name}=(val)
+           @#{attr_name}_history = [nil] if @#{attr_name}_history.nil?
+           @#{attr_name}_history << val
+
+           @#{attr_name} = val
+         end
+    }
+
   end
 end
